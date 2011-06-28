@@ -1,0 +1,16 @@
+{
+  "name": "Turntable Notifier",
+  "description": "Pops up notification with artist/song info at the start of each new song.",
+  "version": "0.1",
+  "background_page": "background.html",
+  "icons": {
+    "16": "icon.png",
+    "128": "icon.png"
+  },
+  "permissions": [
+    "notifications",
+    "tabs",
+    "http://turntable.fm/"
+  ]
+}
+

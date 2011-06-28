@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+	<script>
+
+    chrome.tabs.onUpdated.addListener(function(id,ev,tab){
+      console.log("tab updated",id,ev,tab);
+
+      if( ev.status=="complete"
+          && tab.url
+          && tab.url.match(/turntable.fm/g)){
+
+        chrome.tabs.executeScript(tab.id,{
+          file: 'qwery.js'
+        });
+
+        chrome.tabs.executeScript(tab.id,{
+          file: 'notifier.js'
+        });
+      }
+
+    });
+
+    chrome.extension.onRequest.addListener(
+      function(request, sender, sendResponse){
+        if(request.type="songChange"){
+
+          var notification = webkitNotifications.createNotification(
+            request.image,
+            request.title,
+            request.artist
+          );
+
+          notification.show();
+
+          setTimeout(function(){
+            notification.cancel();
+          },8000);
+        }
+      }
+    );
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>
+
